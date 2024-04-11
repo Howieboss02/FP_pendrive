@@ -1,0 +1,62 @@
+-- Please remember to write a **brief comment** above each function 
+-- to help with fraud prevention.
+
+data Poly a =  X a (Poly a) | EmptyPoly
+  deriving (Show)
+
+--   
+polyFromList :: a -> [a] -> Poly a
+polyFromList a0 [] = (X a0 (EmptyPoly)) 
+polyFromList a0 (x : xs) = (X a0 (polyFromList x xs))
+
+-- 
+evaluateAt :: Num a => Poly a -> a -> a
+evaluateAt (EmptyPoly) x = 0
+evaluateAt (X a next) x = a  + evaluateAtHelper next x x
+
+evaluateAtHelper :: Num a => Poly a -> a -> a -> a
+evaluateAtHelper (EmptyPoly) x d = 0
+evaluateAtHelper (X a next) x d = a * x + evaluateAtHelper next (x * d) d
+
+
+-- 
+addPoly :: Num a => Poly a -> Poly a -> Poly a
+addPoly (EmptyPoly) poly2 = poly2
+addPoly poly1 EmptyPoly = poly1
+addPoly (X a next1) (X b next2) = (X (a+b) (addPoly next1 next2))
+
+-- 
+subtractPoly :: Num a => Poly a -> Poly a -> Poly a
+subtractPoly (EmptyPoly) poly2 = poly2
+subtractPoly poly1 EmptyPoly = poly1
+subtractPoly (X a next1) (X b next2) = (X (a-b) (subtractPoly next1 next2))
+
+-- 
+instance (Eq a, Num a) => Eq (Poly a) where
+  p == q = (isConstZero (subtractPoly p q))
+  
+  
+isConstZero :: (Eq a, Num a) => Poly a -> Bool
+isConstZero (EmptyPoly) = True
+isConstZero (X a next) = (a == 0) && isConstZero next
+  
+-- 
+multPoly :: Num a => Poly a -> Poly a -> Poly a
+multPoly EmptyPoly poly2 = EmptyPoly
+multPoly poly1 EmptyPoly = EmptyPoly
+multPoly (X a next) poly2 = addPoly (scalePoly a poly2) (multByX (multPoly next poly2))
+--multPoly next (multByX  (scalePoly a poly2))
+
+-- multPolyHelper :: Num a => Poly a -> Poly a -> Int -> Poly a
+-- multPoly EmptyPoly poly2 d = EmptyPoly
+-- multPoly poly1 EmptyPoly d = EmptyPoly
+-- multPoly (X a next) poly2 d = (scalePoly a (multByX poly2))
+
+
+scalePoly :: Num a => a -> Poly a -> Poly a 
+scalePoly a (EmptyPoly) = EmptyPoly
+scalePoly a (X b next) = (X (a * b) (scalePoly a next)) 
+
+multByX :: Num a => Poly a -> Poly a
+multByX EmptyPoly = EmptyPoly
+multByX poly = (X 0 poly)

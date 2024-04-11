@@ -1,0 +1,64 @@
+### List and Data Manipulation
+1. map - Applies a function to every element of a list.
+2. filter - Selects elements from a list that satisfy a predicate.
+3. foldl - Left-associative fold of a structure.
+4. foldr - Right-associative fold of a structure.
+5. head - Extracts the first element of a list.
+6. tail - Extracts all elements after the first of a list.
+7. init - Extracts all elements except the last of a list.
+8. last - Extracts the last element of a list.
+9. length - Returns the length of a list.
+10. reverse - Reverses a list.
+11. take - Takes the first n elements of a list.
+12. drop - Drops the first n elements of a list.
+13. splitAt - Splits a list at a given position.
+14. !! - List indexing.
+15. zip - Zips two lists into a list of pairs.
+16. zipWith - Generalized zip that zips with a function.
+17. unzip - Transforms a list of pairs into a list of two lists.
+
+### Function Manipulation
+18. (.) - Function composition.
+19. ($) - Function application.
+20. flip - Flips the arguments of a function.
+21. curry - Converts an uncurried function to a curried function.
+22. uncurry - Converts a curried function to an uncurried function.
+
+### Numeric Functions
+23. +, -, *, / - Basic arithmetic operators.
+24. div, mod - Integer division and modulus.
+25. ^, ** - Exponentiation (integer and floating-point).
+26. sqrt - Square root.
+27. log - Natural logarithm.
+28. abs - Absolute value.
+29. signum - Sign of a number.
+30. fromIntegral - Converts from integral to a more general number type.
+
+### Boolean and Comparison
+31. &&, || - Logical AND and OR.
+32. not - Logical NOT.
+33. ==, /= - Equality and inequality.
+34. <, >, <=, >= - Comparison operators.
+
+### Maybe and Either
+35. maybe - Applies a function to the content of a Maybe.
+36. either - Applies a function depending on the contents of an Either.
+37. isJust, isNothing - Checks for Just or Nothing.
+38. fromMaybe - Extracts the element out of a Maybe with a default.
+
+### Monadic Functions
+39. return - Wraps a value in a monad.
+40. >>=, >> - Bind and then operators for chaining monadic operations.
+41. liftM, liftM2 - Lifts a function into a monad.
+42. guard - Conditional execution in monads.
+43. when, unless - Executes an action based on a Boolean condition.
+
+### Control Structures
+44. ifThenElse - An inline if-then-else (part of RebindableSyntax).
+45. case - Case analysis for pattern matching.
+
+### IO and Interaction
+46. putStrLn, putStr - Print a string with or without a newline.
+47. getLine - Reads a line from standard input.
+48. readFile, writeFile - Reads from and writes to a file.
+49. io - General IO actions.
