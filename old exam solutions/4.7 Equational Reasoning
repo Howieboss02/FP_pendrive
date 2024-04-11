@@ -1,0 +1,67 @@
+open import library
+
+max-zero-left : (m : Nat) → max 0 m ≡ m
+max-zero-left m = 
+  begin
+    max 0 m
+  =<>
+    m
+  end
+
+max-zero-right : (m : Nat) → max m 0 ≡ m
+max-zero-right zero = 
+  begin
+    max 0 0
+  =<>
+    0
+  end
+max-zero-right (suc m) = 
+  begin
+    max (suc m) 0
+  =<>
+    suc m
+  end
+
+max-assoc : (k l m : Nat) → max (max k l) m ≡ max k (max l m)
+max-assoc zero l m = 
+  begin
+    max (max 0 l) m
+  =<>
+    max l m
+  =<>
+    max 0 (max l m)
+  end
+max-assoc (suc k) zero m =
+  begin
+    max (max (suc k) 0) m
+  =<>
+    max (suc k) m
+  =<>
+    max (suc k) (max 0 m)
+  end
+max-assoc (suc k) (suc l) zero =
+  begin
+    max (max (suc k) (suc l)) 0
+  =<>
+    max (suc (max k l)) 0
+  =<>
+    suc (max k l)
+  =<>
+    max (suc k) (suc l)
+  =<>
+    max (suc k) (max (suc l) 0)
+  end
+max-assoc (suc k) (suc l) (suc m) = 
+  begin
+    max (max (suc k) (suc l)) (suc m)
+  =<>
+    max (suc (max k l)) (suc m)
+  =<>
+    suc (max (max k l) m)
+  =< cong suc (max-assoc k l m) >
+    suc (max k (max l m))
+  =<>
+    max (suc k) (suc (max l m))
+  =<>
+    max (suc k) (max (suc l) (suc m))
+  end
